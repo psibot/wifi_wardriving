@@ -331,6 +331,7 @@ function gerix_wifi()
     echo -s " To launch the program use:"
     echo -s "$ python gerix.py"
     echo -s "Enjoy!"
+    python /tmp/gerix.py
     clear
 }
 
