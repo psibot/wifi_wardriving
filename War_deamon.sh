@@ -355,8 +355,9 @@ function whole_thing()
 
 
 echo -e "Quick setup!!!"
-apt-get install airmon-ng bully reaver wifiphisher gitclone tcpdump libpcap0.8 libpcap0.8-dev pyrit tshark cowpatty 
-pip2 install scapy
+#apt-get install airmon-ng bully reaver wifiphisher gitclone tcpdump libpcap0.8 libpcap0.8-dev pyrit tshark cowpatty 
+#pip2 install scapy
+# Not needed with kali !
 clear 
 for i in {16..21} {21..16} ; do echo -en "\e[48;5;${i}m \e[0m" ; done ; echo
 for i in {16..21} {21..16} ; do echo -en "\e[48;5;${i}m \e[0m" ; done ; echo
