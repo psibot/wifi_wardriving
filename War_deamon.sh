@@ -3,9 +3,9 @@
 # REV: Version 1.0
 # PLATFORM: Linux
 # AUTHOR: Coenraad
-# Wardriving Tool Kit 
-# PURPOSE: WAR WIFI 
-# 
+# Wardriving Tool Kit
+# PURPOSE: WAR WIFI
+# CONTRIBUTOR: Adam
 ##########################################################
 ########### DEFINE FILES AND VARIABLES HERE ##############
 ##########################################################
@@ -21,7 +21,11 @@ clear
 ##########################################################
 ################ BEGINNING OF MAIN #######################
 ##########################################################
-function see_devices() 
+function pause() {
+  read -p "$*"
+}
+
+function see_devices()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m Devive Info !!!  \e[0m"
@@ -31,16 +35,16 @@ function see_devices()
 }
 
 
-function info_recon() 
+function info_recon()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m Recon and Info !!!  \e[0m"
     echo
     echo "Pick Monitoring Device for RECON"
     iwconfig
-    echo 
+    echo
     echo "Type Device Name Use for Recon:"
-    read devices_recon 
+    read devices_recon
       echo -e "\e[1m Must hit ctrl-c to stop session !\e[0m"
     sleep 2
     airodump-ng $devices_recon
@@ -54,7 +58,7 @@ echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'a' for SHOW WIFI DEVICES !!! \e[0m
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'b' for SET DEVICES TO MONITOR !!!\e[0m"
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'c' for RECON: GATHER NETWORK INFO AND TARGET DEVICES !!!\e[0m"
 
-echo 
+echo
 echo -e "PART B : Basic Wifi Attacks "
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'd' for BASIC REAVER ATTACK !!!\e[0m"
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'e' for BASIC BULLY ATTACK !!!\e[0m"
@@ -80,18 +84,18 @@ echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit '18' for Fluxion !!!\e[0m"
 echo -e "PART E : The Whole Thing "
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit '21' for Some Great Stuff - Please istall packages One By One !!!\e[0m"
 echo
-echo 
+echo
 echo -e "PART F : Wifi automated wireless attack tool "
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit '2' for WIFITE - 1 network card , disable other !!!\e[0m"
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit '3' for HT-WPS BREAKER !!!\e[0m"
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit '4' for FrankenScript !!!\e[0m"
-echo 
+echo
 echo -e "PART G  : Wifi disrupt wireless attack tool "
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'yy' for DISRUPT: Installer wifijammer wifi disrupt tool \e[5m *** USE WIT CAUTION ***  !!!\e[0m"
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'y1' for DISRUPT: Installer Wifi Kill disrupt tool - kick people off of wifi \e[5m *** USE WIT CAUTION ***  !!!\e[0m"
-echo 
+echo
 echo -e "\e[32m[-]\e[0m \e[1m   Choose : Hit 'x' to EXIT !!!\e[0m"
-echo "Pick Option:" 
+echo "Pick Option:"
 }
 
 function mode_set()
@@ -99,65 +103,65 @@ function mode_set()
  echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m Pick device to set to MONITOR MODE !!!  \e[0m"
     echo
-    echo TYPE NAME OF DEVICE FOR MONITOR MODE : 
-    read wifi_device 
+    echo TYPE NAME OF DEVICE FOR MONITOR MODE :
+    read wifi_device
     ifconfig $wifi_device down
     iwconfig $wifi_device mode monitor
     ifconfig  $wifi_device up
     iwconfig $wifi_device
-    sleep 2   
+    sleep 2
 }
 
 
-function basic_reaver() 
+function basic_reaver()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m Very Basic Reaver Attack !!!  \e[0m"
-    echo 
+    echo
     echo -e "Very Basic Reaver Attack, use REAVER full tool for differnt switches "
     echo
     sudo apt-get upgrade reaver
     echo "Pick Monitoring Device for RECON and REAVER !!!"
     iwconfig
-    echo 
+    echo
     echo "Type Device Name Use for Recon and Reaver:"
-    read devices_recon 
+    read devices_recon
     echo -e "\e[1m Must hit ctrl-c to stop session !\e[0m"
     sleep 2
     airodump-ng $devices_recon
-    echo 
+    echo
     echo -e "\e[40;38;5;82m [*] \e[30;48;5;82m REAVER TARGET BSSID: \e[0m"
     read reaver_b
-    echo 
+    echo
     echo -e "\e[40;38;5;82m [*] \e[30;48;5;82m REAVER CHANNEL : \e[0m"
     read reaver_c
-    echo 
+    echo
     echo -e "\e[40;38;5;82m [*] \e[30;48;5;82m REAVER ESSID: \e[0m"
     read reaver_e
     echo -e "\e[1m Must hit ctrl-c to stop session !\e[0m"
     sleep 2
     reaver -i $devices_recon -c $reaver_c -b $reaver_b -e $reaver_e -vvv
-    echo 
+    echo
 
 }
 
-function basic_bully() 
+function basic_bully()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m Very Basic Bully Attack !!!  \e[0m"
-    echo 
+    echo
     echo -e "Very Basic Bully Attack, use BULLY full tool for differnt switches "
     echo
     sudo apt-get upgrade bully
     echo "Pick Monitoring Device for RECON and BULLY !!!"
     iwconfig
-    echo 
+    echo
     echo "Type Device Name Use for Recon and BULLY:"
-    read devices_recon 
+    read devices_recon
     echo -e "\e[1m Must hit ctrl-c to stop session !\e[0m"
     sleep 2
     airodump-ng $devices_recon
-    echo 
+    echo
     echo -e "\e[40;38;5;82m [*] \e[30;48;5;82m BULLY TARGET BSSID: \e[0m"
     read bully_b
 
@@ -166,22 +170,22 @@ function basic_bully()
     echo
 }
 
-function basic_wifiphisher() 
+function basic_wifiphisher()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m Very Basic Wifiphisher Attack !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Needs Two  Networks Cards !!! "
     echo
     wifiphisher
     echo
 }
 
-function WiFi-Pumpkin() 
+function WiFi-Pumpkin()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m Framework for Rogue Wi-Fi Access Point Attack !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/P0cL4bs/WiFi-Pumpkin.git
@@ -194,11 +198,11 @@ function WiFi-Pumpkin()
     clear
 }
 
-function wifite() 
+function wifite()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  Wifite An automated wireless attack tool.  !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     wget https://raw.github.com/derv82/wifite/master/wifite.py
@@ -210,11 +214,11 @@ function wifite()
     clear
 }
 
-function ht-wps() 
+function ht-wps()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  HT-WPS BREAKER !!! An automated wireless attack tool.  !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/wi-fi-analyzer/HT-WPS-Breaker.git
@@ -227,11 +231,11 @@ function ht-wps()
 }
 
 
-function frankenscript() 
+function frankenscript()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  FrankenScript !!! An automated wireless attack tool.  !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/wi-fi-analyzer/FrankenScript.git
@@ -245,11 +249,11 @@ function frankenscript()
 }
 
 
-function ghost() 
+function ghost()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  Ghost Phisher.  Wireless and Ethernet security auditing and attack software  !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     apt-get install ghost-phisher
@@ -259,11 +263,11 @@ function ghost()
     clear
 }
 
-function fern() 
+function fern()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  Wifite An automated wireless attack tool.  !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     svn checkout http://github.com/savio-code/fern-wifi-cracker/trunk/Fern-Wifi-Cracker/
@@ -277,11 +281,11 @@ function fern()
 }
 
 
-function airgeddon() 
+function airgeddon()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  Airgeddon An automated wireless attack tool.  !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     sudo apt-get install  hashcat pixiewps dsniff bettercap iw net-tools sslstrip beef unbuffer beef-xss expect sslstrip
     cd /tmp
@@ -295,11 +299,11 @@ function airgeddon()
     clear
 }
 
-function warcarrier() 
+function warcarrier()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  Warcarrier is a dashboard for scanning and trolling 802.11 WiFi, 802.15.1 Bluetooth, and GPS.  !!!  \e[0m"
-    echo 
+    echo
     echo -e "You will need to install Spectools_raw https://www.kismetwireless.net/spectools/ Net::Bluetooth    http://search.cpan.org/~iguthrie/Net-Bluetooth-0.40/Bluetooth.pm"
     echo -e "Install CPAN Perl"
     echo -e  "HTML::GMap"
@@ -324,11 +328,11 @@ function warcarrier()
     clear
 }
 
-function AtEar() 
+function AtEar()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  AtEar , is a wireless pentest system. !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     sudo apt-get install  aircrack-ng tshark hostapd python-dev python-flask python-paramiko python-psycopg2 python-pyodbc python-sqlite python-pip
     sudo pip2 install python-libnmap
@@ -340,39 +344,39 @@ function AtEar()
     echo -s "Starting  AtEar"
     echo
     iwconfig
-    echo 
+    echo
     echo -e "Pick Wifi Device"
     read devices_atear
     python2 run.py --iface $devices_atear
     clear
 }
 
-function fruitywifi() 
+function fruitywifi()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  FruityWifi is an open source tool to audit wireless networks !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/xtr4nge/FruityWifi.git
     cd  FruityWifi/
     chmod +x install-FruityWifi.sh
-    ./install-FruityWiFi.sh 
+    ./install-FruityWiFi.sh
     echo -s "Starting  FruityWifi"
     /etc/init.d/fruitywifi start
     /etc/init.d/php5-fpm start
     clear
 }
 
-function gerix_wifi() 
+function gerix_wifi()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  GERIX-wifi-cracker-2 is an open source tool to audit wireless networks !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/J4r3tt/gerix-wifi-cracker-2.git
-    echo 
+    echo
     echo -s "GERIX-wifi-cracker-2"
     echo -s "REQUISITES: You need the modules: qt (v.4) LAUNCH:"
     echo -s " To launch the program use:"
@@ -384,16 +388,16 @@ function gerix_wifi()
     clear
 }
 
-function fluxion() 
+function fluxion()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  Fluxion !!! is an open source tool to audit wireless networks !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/wi-fi-analyzer/fluxion.git
 
-    echo 
+    echo
     echo -s "Fluxion !!!"
     echo -s " To launch the program use:"
     echo -s "$ ./Installer.sh"
@@ -405,30 +409,30 @@ function fluxion()
     clear
 }
 
-function whole_thing() 
+function whole_thing()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  Some Great Stuff  to audit wireless networks !!!  \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/0x90/wifi-arsenal.git
-    echo 
+    echo
     echo -s "Please install packages One By One "
     echo -s "Be sure what YOU INSTALL!!!!"
     sleep 8
     clear
 }
 
-function basic_tools() 
+function basic_tools()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  RECON: Installer for some basic wifi tools!!! \e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/rockymeza/wifi.git
-    echo 
+    echo
     echo -s "Install tools a root in new shell!!!"
     echo -s "Read https://wifi.readthedocs.io/en/latest/ !!!!"
     echo -s "example: wifi -i wlp3s0 list"
@@ -436,31 +440,31 @@ function basic_tools()
     clear
 }
 
-function pixiewps() 
+function pixiewps()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  RECON: Installer PIXIEwps Brute Force wifi tools !!!\e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     sudo apt-get -y install build-essential
     cd /tmp
     git clone https://github.com/wiire/pixiewps.git
-    echo 
+    echo
     echo -s "Install tools a root in new shell!!!"
     echo -s "Read https://github.com/wiire/pixiewps!!!!"
     sleep 8
     clear
 }
 
-function wifitap() 
+function wifitap()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  RECON: Installer WIFITAP WiFi injection tool through tun/tap device !!!\e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/GDSSecurity/wifitap.git
-    echo 
+    echo
     echo -s "Install tools a root in new shell!!!"
     echo -s "Read https://github.com/GDSSecurity/wifitap!!!!"
     echo -s "Read http://sid.rstack.org/static/articles/w/i/f/Wifitap_EN_9613.html"
@@ -469,15 +473,15 @@ function wifitap()
 }
 
 
-function wifijammer() 
+function wifijammer()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  DISRUPT: Installer wifijammer wifi disrupt tool \e[5mB *** USE WITH CAUTION ***  !!!!\e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/DanMcInerney/wifijammer.git
-    echo 
+    echo
     echo -s "Install tools a root in new shell!!!"
     echo -s "CAUTION !!! THIS TOOL WILL CAUSE ISSUES --- dont run it at your work!!! "
     echo -s "Read https://github.com/DanMcInerney/wifijammer!!!"
@@ -485,15 +489,15 @@ function wifijammer()
     clear
 }
 
-function wifikill() 
+function wifikill()
 {
     echo
     echo -e "\e[40;38;5;82m [+] \e[30;48;5;82m  DISRUPT: Installer Wifi Kill disrupt tool - kick people off of wifi \e[5m *** USE WIT CAUTION ***  !!!\e[0m"
-    echo 
+    echo
     echo -e "!!! Quick Setup !!! "
     cd /tmp
     git clone https://github.com/roglew/wifikill.git
-    echo 
+    echo
     echo -s "Install tools a root in new shell!!!"
     echo -s "CAUTION !!! THIS TOOL WILL CAUSE ISSUES --- dont run it at your work!!! "
     echo -s "Read https://github.com/roglew/wifikill!!!"
@@ -502,11 +506,11 @@ function wifikill()
 }
 
 echo -e "Quick setup!!!"
-#apt-get install airmon-ng bully reaver wifiphisher gitclone tcpdump libpcap0.8 libpcap0.8-dev pyrit tshark cowpatty 
+#apt-get install airmon-ng bully reaver wifiphisher gitclone tcpdump libpcap0.8 libpcap0.8-dev pyrit tshark cowpatty
 #apt-get install tcpdump graphviz imagemagick python-gnuplot python-cryptography python-pyx
 #pip2 install scapy
 # Not needed with kali !
-clear 
+clear
 for i in {16..21} {21..16} ; do echo -en "\e[48;5;${i}m \e[0m" ; done ; echo
 for i in {16..21} {21..16} ; do echo -en "\e[48;5;${i}m \e[0m" ; done ; echo
 echo -e "\e[40;38;5;82m Linux WAR Driving Framework v.1 \e[30;48;5;82m Control \e[0m"
@@ -522,165 +526,116 @@ echo -e "Also this script must be executed as ROOT  "
 echo -e "HINT: Configure devices , Plan attack type! , Gather PCAP , Execute Attack! \e[0m"
 echo
 
-
-show_menus
-
-read choice
-if [ "$choice" == a ]; then
+while :
+do
+  show_menus
+  read choice
+case $choice in
+  a )
     see_devices
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == b ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  b )
     mode_set
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == c ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  c )
     info_recon
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == d ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  d )
     basic_reaver
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == e ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  e )
     basic_bully
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == f ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  f )
     basic_wifiphisher
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 1 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  1 )
     WiFi-Pumpkin
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 11 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  11 )
     fern
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 12 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  12 )
     ghost
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 13 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  13 )
     warcarrier
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 14 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  14 )
     airgeddon
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 15 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  15 )
     AtEar
-    show_menus
-    read choice
-fi
-
-
-if [ "$choice" == 16 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  16 )
     fruitywifi
-    show_menus
-    read choice
-fi
-
-
-if [ "$choice" == 17 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  17 )
     gerix_wifi
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 18 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  18 )
     fluxion
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 2 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  2 )
     wifite
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 3 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  3 )
     ht-wps
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 4 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  4 )
     frankenscript
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == 21 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  21 )
     whole_thing
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == xx ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  xx )
     basic_tools
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == x1 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  x1 )
     pixiewps
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == x2 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  x2 )
     wifitap
-    show_menus
-    read choice
-fi
-
-
-if [ "$choice" == yy ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  yy )
     wifijammer
-    show_menus
-    read choice
-fi
-
-if [ "$choice" == y1 ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  y1 )
     wifikill
-    show_menus
-    read choice
-fi
-
-
-if [ "$choice" == x ]; then
+    pause 'Press [enter] key to continue'
+    ;;
+  x )
     clear
     sleep 2
     echo -e "\e[40;38;5;82m [*] \e[30;48;5;82m THANK YOU FOR USING ME !!!  \e[0m"
     echo -e "\e[40;38;5;82m [*] \e[30;48;5;82m Any info contact me : coenraadlamprecht@gmail.com  \e[0m"
-    exit 0
-fi
+    break
+    ;;
+esac
+done
 
 
 exit 0
