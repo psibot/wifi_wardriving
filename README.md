@@ -11,3 +11,8 @@ Look at the cheat sheet for custom attacks
 WAR_deamon.sh - will sync and build some of the tools you need to wardrive... I am playing around with the script - Works on great on KALI 32 bit.
 
 Run attacks as sudo or root !!!
+
+
+New update - Check  Wardriver2.sh --2021/ 
+
+Enjoy --- FYI bettercap is awesome.
